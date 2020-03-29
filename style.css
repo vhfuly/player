@@ -1,6 +1,10 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css";
 
+:root{
+    --primary: rgb(53, 182, 35);
+}
+
 body{
     height: 100vh;
     background-color: #efefef;
@@ -24,7 +28,7 @@ body{
 }
 
 h4{
-    color: rgb(53, 182, 35);
+    color: var(--primary);
     font-size:25px;
     font-weight: bold;
     margin: 0;
@@ -46,3 +50,39 @@ audio{
  width: 100%;
  margin-top: 20px;    
 }
+#play-pause,
+#next,
+#previous{
+    background-color: var(--primary);
+
+    align-items: flex-start;
+}
+#mute{
+    color:var(--primary);
+    transform: translateY(2px);
+}
+#skip_previous{
+    
+    position: absolute;
+    margin-top: 55px; 
+    margin-left: 50px; 
+    
+}
+#skip_next{
+    position: absolute;
+    margin-top: 55px; 
+    margin-left: 360px; 
+    
+}
+input[type="range"]::-webkit-slider-thumb {
+    background-color: var(--primary);
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    background-color: var(--primary);
+  }
+  
+  input[type="range"]::-ms-thumb {
+    background-color: var(--primary);
+  }
+  

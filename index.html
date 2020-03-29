@@ -11,19 +11,49 @@
 
         <h4><i class="material-icons">equalizer</i>Fuly Player</h4>
         <div class="card">
-            <div class="card-image"></div>
+            <div class="card-image">
+                <a href="#" class="btn-floating btn-larger halfway-fab">
+                    <i class="material-icons" id="play-pause">play_arrow</i>
+                </a>
+            </div>
                 <div class="card-content"> 
                     <h5>Titulo</h5>
                     <p class="artist">Artista</p>
-                    <audio controls src=""></audio>
+
+                    <div class="row valign-wrapper">
+                        <div class="col s2" id="current-duration">00:00</div>
+                        <div class="col s6 range-field valign-wrapper">
+                          <input type="range" min="0" max="0" id="seekbar" step="1" />
+                        </div>
+                        <div class="col s2" id="total-duration">00:00</div>
+                        <div>
+                          <a href="#">
+                            <i class="material-icons" id="mute">volume_up</i>
+                          </a>
+                        </div>
+                        <div class="col s3 range-field valign-wrapper">
+                          <input id="vol-control" type="range" min="0" max="100" step="1" />
+                        </div>
+
+                        <div id="skip_previous">
+                        <a href="#" class="btn-floating btn-start btn-larger halfway-fab valign-wrapper">
+                        <i class="material-icons" id="previous">skip_previous</i>
+                        </a>
+                       </div>
+                    <div id="skip_next">
+                        <a href="#" class="btn-floating btn-larger halfway-fab">
+                            <i class="material-icons" id="next">skip_next</i>
+                        </a>
+                    
+                        </div>
+                    </div>
                 </div>
                 
            
         </div>
 
     </div>
-    <script src="data.js"></script>
-    <script src="player.js"></script>
-    <script src="index.js"></script>
+    
+    <script src="index.js" type="module"></script>
 </body>
 </html>

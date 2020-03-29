@@ -1,41 +1,94 @@
-window.player = {
-        
-    cover : document.querySelector(".card-image"),
-    title : document.querySelector(".card-content h5"),
-    artist : document.querySelector(".artist"),
-    audio : document.querySelector("audio"),
-    audiosData: audios,
-    currentAudio : {},
-    currentPlaying:0,
-       
+import audios from "./data.js";
+import { path, secondsToMinutes } from  "./utils.js";
+import elements from "./playerElements.js";
+
+
+export default {
+    audioData: audios,
+    currentAudio: {},
+    currentPlaying: 0,
+    isPlaying: false,
     start() {
-        this.update();        
-       this.audio.onended =() => this.next();
-       },
-       next(){
+      elements.get.call(this);
+      this.update();
+    },
+  
+    play() {
+      this.isPlaying = true;
+      this.audio.play();
+      this.playPause.innerText = "pause";
+    },
+  
+    pause() {
+      this.isPlaying = false;
+      this.audio.pause();
+      this.playPause.innerText = "play_arrow";
+    },
+  
+    togglePlayPause() {
+      if (this.isPlaying) {
+        this.pause();
+      } else {
+        this.play();
+      }
+    },
+    skipPrevious(){
+        this.pause();
+        this.currentPlaying--;
+      if (this.currentPlaying < 0 ) this.restart();
+      this.update();
+      this.play();
+    },
+    skipNext(){
+        this.pause();
         this.currentPlaying++;
+      if (this.currentPlaying == this.audioData.length) this.restart();
+      this.update();
+      this.play();
+    },
+  
+    toggleMute() {
+      this.audio.muted = !this.audio.muted;
+      this.mute.innerText = this.audio.muted ? "volume_off" : "volume_up";
+    },
+  
+    next() {
+      this.currentPlaying++;
+      if (this.currentPlaying == this.audioData.length) this.restart();
+      this.update();
+      this.play();
+    },
+  
+    setVolume(value) {
+      this.audio.volume = value / 100;
+    },
+  
+    setSeek(value) {
+      this.audio.currentTime = value;
+    },
 
-        if (this.currentPlaying == this.audiosData.length) this.restart();
-        this.update();  
-        this.audio.play();
-       },
-
-       update(){
-
-        this.currentAudio = this.audiosData[this.currentPlaying];
-
-       this.cover.style.background = `url('${path(this.currentAudio.cover)}') no-repeat top center / cover`;
-       this.title.innerText = this.currentAudio.title;
-       this.artist.innerText = this.currentAudio.artist;
-       this.audio.src = path(this.currentAudio.file);
-
-
-       },
-
-       restart(){
-        this.currentPlaying = 0;
-        this.update();
-
-       }
-   };
- 
+    
+    timeUpdate() {
+      this.currentDuration.innerText = secondsToMinutes(this.audio.currentTime);
+      this.seekbar.value = this.audio.currentTime;
+    },
+  
+    update() {
+      this.currentAudio = this.audioData[this.currentPlaying];
+      this.cover.style.background = `url('${path(
+        this.currentAudio.cover
+      )}') no-repeat center center / cover`;
+      this.title.innerText = this.currentAudio.title;
+      this.artist.innerText = this.currentAudio.artist;
+      elements.createAudioElement.call(this, path(this.currentAudio.file));
+  
+      this.audio.onloadeddata = () => {
+        elements.actions.call(this);
+      };
+    },
+  
+    restart() {
+      this.currentPlaying = 0;
+      this.update();
+    }
+  };
