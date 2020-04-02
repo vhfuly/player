@@ -1,6 +1,7 @@
 import audios from "./data.js";
 import { path, secondsToMinutes } from  "./utils.js";
 import elements from "./playerElements.js";
+import data from "./data.js";
 
 
 export default {
@@ -91,4 +92,5 @@ export default {
       this.currentPlaying = 0;
       this.update();
     }
+  
   };

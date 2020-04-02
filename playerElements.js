@@ -13,6 +13,7 @@ export default{
         this.totalDuration = document.querySelector("#total-duration");
         this.skipnext = document.querySelector("#next");
         this.skipprevious = document.querySelector("#previous");
+        this.data = document.querySelector("#data");
     },
     createAudioElement(audio){
         this.audio = new Audio(audio);
@@ -32,6 +33,6 @@ export default{
         this.seekbar.onchange = () => this.setSeek(this.seekbar.value);
         this.seekbar.max = this.audio.duration;
         this.totalDuration.innerText = secondsToMinutes(this.audio.duration);
-        
+        this.data.onended = () => this.data();
         }
 };
